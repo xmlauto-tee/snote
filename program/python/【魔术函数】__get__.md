@@ -1,4 +1,4 @@
-##### `__get*__ __set*__ __del*__` 魔术函数
+## `__get*__ __set*__ __del*__` 魔术函数
 
 注意，这几个函数只针对新式类有效，经典类是无效的
 ```python
@@ -14,11 +14,11 @@ object.__delete__(self, instance)
 参考: [customizing-attribute-access](https://docs.python.org/3/reference/datamodel.html#customizing-attribute-access)  
 这几个函数必须和`AttributeError`这个异常一起说明
 
-##### `__dict__`变量
+## `__dict__`变量
 
 这个变量存储了模块，类等对象的可访问属性，是一个字典，key是属性名，value是属性值，我们通过`x.a`访问x对象的a属性的时候，其实就是`x.__dict__['a']`的方式在访问
 
-##### `__getattr__`和`__getattribute__`
+## `__getattr__`和`__getattribute__`
 
 1. 对象(注意这里说的是对象，不是说的类，意思是所有的python对象)如果定义了`__getattribute__`这个函数，那么通过`x.a`的方式访问的时候，会无条件的走到这个函数里面，也就是不管`__dict__`是否有这个属性，或者这个属性是什么，都不管，一定会调用`__getattribute__`这个函数，其实当定义了这个函数后`__dict__`已经不存在了，当用`a.__dict__`的方式访问`__dict__`属性的时候，已经无条件的走到了这个函数内部，但是注意，它只是覆盖了a这个实例的`__dict__`属性，类本身的`__dict__`还是仍然存在的，因为类也是一个对象，它有自己独立的创建者，而它的创建者有可能没有实现`__getattribute__`函数，也有可能在里面对`__dict__`重新定义了
 
@@ -95,7 +95,7 @@ a.fun3 # 会走到__getattr__，此时里面又有一个self.b，还是找不到
 # RuntimeError: maximum recursion depth exceeded while calling a Python object
 ```
 
-##### 描述符
+## 描述符
 
 ```python
 class Des(object):
@@ -184,11 +184,11 @@ ins.fun()
 Owner.__dict__['fun'](ins)
 ```
 
-##### 使用场景
+## 使用场景
 
-###### 实现赖加载
+### 实现赖加载
 
-###### 初入
+### 初入
 
 ```python
 # -*- coding:utf-8 -*-
@@ -205,7 +205,7 @@ a = A()
 print(a.func) # <__main__.deco object at 0x000000000399BE88> 也就是func相当于是一个deco的实例，类推到描述符
 ```
 
-###### get引入
+### get引入
 
 ```python
 # -*- coding:utf-8 -*-
@@ -225,7 +225,7 @@ a = A()
 print(a.func) # get, 走到deco的__get__方法
 ```
 
-###### 举例
+### 举例
 
 假设我们有一个工具类MongoUtil，它的作用是封装一些数据库操作。例如：
 
